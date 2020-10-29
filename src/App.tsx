@@ -8,11 +8,11 @@ function App() {
 
     let [startValue, setStartValue] = useState<number>(Number(localStorage.getItem("startValue")) || 0)
     let [maxValue, setMaxValue] = useState<number>(Number(localStorage.getItem("maxValue")) || 5)
-    let [prompt, setPrompt] = useState<string>("")
+    let [error, setError] = useState<boolean>(false)
     let [disabledInc, setDisabledInc] = useState<boolean>(false)
-    let [disabledReset, setDisabledReset] = useState<boolean>(false)
-    let [disabledSet, setDisabledSet] = useState<boolean>(true)
+    let [disabledSet, setDisabledSet] = useState<boolean>(false)
     let [displayedDigit, setDisplayedDigit] = useState<number>(startValue)
+    let [settingMode, setSettingMode] = useState<boolean>(false)
 
     useEffect(() => {
         localStorage.setItem("startValue", startValue.toString())
@@ -28,25 +28,20 @@ function App() {
             setMaxValue(maxValue)
         }
         changePrompt()
-        setDisabledInc(true)
-        setDisabledReset(true)
     }
 
     function changePrompt() {
         if (startValue < 0 || maxValue <= startValue) {
             setDisabledSet(true)
-            setPrompt("Incorrect value!")
+            setError(true)
         } else {
             setDisabledSet(false)
-            setPrompt("enter values and press 'set'")
+            setError(false)
         }
     }
 
     function onSetButtonClick() {
-        setDisabledSet(true)
-        setDisabledInc(false)
-        setDisabledReset(false)
-        setPrompt("")
+        setSettingMode(!settingMode)
         setDisplayedDigit(startValue)
     }
 
@@ -65,23 +60,22 @@ function App() {
 
     return (
         <div className={"app-wrapper"}>
-            <ValueSetter
+            { settingMode
+            ? <ValueSetter
                 maxValue={maxValue}
                 startValue={startValue}
                 onValueChange={onValueChange}
-                prompt={prompt}
+                error={error}
                 disabledSet={disabledSet}
                 onSetButtonClick={onSetButtonClick}/>
-            <Counter
+            : <Counter
                 displayedDigit={displayedDigit}
                 startValue={startValue}
                 maxValue={maxValue}
-                prompt={prompt}
                 disabledInc={disabledInc}
-                disabledReset={disabledReset}
                 disabledSet={disabledSet}
                 onSetButtonClick={onSetButtonClick}
-                changeDigit={changeDigit}/>
+                changeDigit={changeDigit}/> }
         </div>
     )
 }

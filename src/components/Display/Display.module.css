@@ -1,6 +1,6 @@
 .counter, .prompt, .error {
     display: block;
-    width: 255px;
+    width: 260px;
     height: 70px;
     border: 1px solid aquamarine;
     border-radius: 5px;
@@ -13,7 +13,7 @@
 
 .counterStop {
     display: block;
-    width: 255px;
+    width: 260px;
     height: 70px;
     border: 1px solid aquamarine;
     border-radius: 5px;

@@ -3,7 +3,7 @@ import s from './Button.module.css';
 
 type PropsType = {
     title: "inc" | "reset" | "set"
-    disabled: boolean
+    disabled?: boolean
     startValue?: number
     displayedDigit?: number
     changeDigit?: (displayedDigit: number) => void

@@ -5,7 +5,7 @@ type PropsType = {
     inputDigit: number
     title: string
     onChange: (inputDigit: number, title: string) => void
-    prompt: string
+    error: boolean
 }
 
 export function InputForm(props: PropsType) {
@@ -15,7 +15,7 @@ export function InputForm(props: PropsType) {
         props.onChange(input, props.title)
     }
 
-    let inputClassName = props.prompt === "Incorrect value!" ? s.incorrectValue : ""
+    let inputClassName = props.error ? s.incorrectValue : ""
 
     return (
         <div className={s.input}>
